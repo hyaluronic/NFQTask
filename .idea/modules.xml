@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/NFQTask.iml" filepath="$PROJECT_DIR$/.idea/NFQTask.iml" />
+      <module fileurl="file://$PROJECT_DIR$/demoproject/demoproject.iml" filepath="$PROJECT_DIR$/demoproject/demoproject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/nfqdemo/nfqdemo.iml" filepath="$PROJECT_DIR$/nfqdemo/nfqdemo.iml" />
+    </modules>
+  </component>
+</project>
