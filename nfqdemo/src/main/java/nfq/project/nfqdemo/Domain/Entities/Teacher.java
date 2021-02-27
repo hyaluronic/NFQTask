@@ -8,8 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Entity
-@Table(name="Teacher")
-public class Teacher implements Serializable {
+public class Teacher{
 
     public Teacher()
     {
@@ -18,7 +17,7 @@ public class Teacher implements Serializable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
+    private int id;
 
     private String name;
     private List<Project> projects = Collections.emptyList();

@@ -8,12 +8,11 @@ import java.util.List;
 
 
 @Entity
-@Table(name="Project")
-public class Project implements Serializable {
+public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private int id;
     private String projectName;
     private Integer numberOfGroups;
     private Integer studentsPerGroup;

@@ -24,13 +24,9 @@
             <td>delete</td>
         </tr>
     </div>
-    <tr>
-        <td><input type="text" id="fname" name="fname"/></td>
-        <td/>
-        <td>delete</td>
-    </tr>
 </table>
 <td>
+    <input type="text" id="fname" name="fname"/>
     <span th:if="${project.students.size()<project.numberOfGroups*project.studentsPerGroup}">
         <button onclick="location.href='/addStudent'" type="button" value="Add">Add new student</button>
     </span>
