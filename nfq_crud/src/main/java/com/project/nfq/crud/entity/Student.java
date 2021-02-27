@@ -2,16 +2,13 @@ package com.project.nfq.crud.entity;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="STUDENT_TBL")
+@Table(name="Student")
 public class Student {
 
     @Id
@@ -19,4 +16,7 @@ public class Student {
     private Integer id;
     private String name;
     private Integer group;
+    @ManyToOne
+    @JoinColumn(name="project_id")
+    private Project project;
 }

@@ -23,19 +23,19 @@ public class StudentController {
         return service.saveStudents(students);
     }
 
-    @GetMapping("/products")
+    @GetMapping("/students")
     public List<Student> findAllStudents(){
         return service.getStudents();
     }
 
-    @GetMapping("/product/{id}")
+    @GetMapping("/student/{id}")
     public Student findStudentById(@PathVariable int id){
         return service.getStudentById(id);
     }
 
-    @GetMapping("/product/{name}")
-    public Student findStudentByName(@PathVariable String Name){
-        return service.getStudentByName(Name);
+    @GetMapping("/student/{name}")
+    public Student findStudentByName(@PathVariable String name){
+        return service.getStudentByName(name);
     }
 
     @PutMapping("/updateStudent")
