@@ -1,4 +1,4 @@
-package nfq.project.nfqdemo;
+package nfq.project.nfqdemo.Controllers;
 
 import nfq.project.nfqdemo.Domain.Entities.Project;
 import nfq.project.nfqdemo.Domain.Entities.Student;
