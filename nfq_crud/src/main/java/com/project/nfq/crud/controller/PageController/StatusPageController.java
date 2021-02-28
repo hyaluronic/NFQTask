@@ -10,16 +10,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Collections;
 import java.util.List;
 
 @Controller
 public class StatusPageController {
 
 
-    private final List<Student> students = Collections.emptyList();
+    //    private final List<Student> students = Collections.emptyList();
     @Autowired
     private ProjectService projectService;
     @Autowired
@@ -37,7 +35,9 @@ public class StatusPageController {
 
     @PostMapping("/addStudent")
     public String addStudent(String studentName, Integer projectId) {
-        if(!studentName.isBlank()&&studentService.getStudentByName(studentName)==null){
+        List<Student> students = studentService.getStudentsByProject(projectId);
+        students.removeIf(student -> !student.getName().equals(studentName));
+        if (!studentName.isBlank() && students.isEmpty()) {
             Project project = projectService.getProjectById(projectId);
             Student student = new Student();
             student.setName(studentName);

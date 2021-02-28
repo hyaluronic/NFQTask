@@ -28,6 +28,12 @@ public class StudentService {
         return students;
     }
 
+    public List<Student> getStudentsByProject(Integer projectId){
+        List<Student> students = getStudents();
+        students.removeIf(student -> student.getProject().getId() != projectId);
+        return students;
+    }
+
     public Student getStudentById(int id){
         return studentRepository.findById(id).orElse(null);
     }
