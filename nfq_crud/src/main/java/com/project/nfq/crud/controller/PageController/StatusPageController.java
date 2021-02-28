@@ -4,6 +4,7 @@ import com.project.nfq.crud.entity.Project;
 import com.project.nfq.crud.entity.Student;
 import com.project.nfq.crud.service.ProjectService;
 import com.project.nfq.crud.service.StudentService;
+import com.project.nfq.crud.service.ValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,8 +37,7 @@ public class StatusPageController {
     @PostMapping("/addStudent")
     public String addStudent(String studentName, Integer projectId) {
         List<Student> students = studentService.getStudentsByProject(projectId);
-        students.removeIf(student -> !student.getName().equals(studentName));
-        if (!studentName.isBlank() && students.isEmpty()) {
+        if (!studentName.isBlank() && ValidationService.isStudentNameValid(studentName, students)){
             Project project = projectService.getProjectById(projectId);
             Student student = new Student();
             student.setName(studentName);
