@@ -74,7 +74,8 @@
                     <select id="studentIds" name="studentIds" style="width:100%">
                         <c th:each="studentWithoutGroup,iterStat : ${studentsWithoutGroup}">
                             <option th:text="${studentWithoutGroup.name}"
-                                    th:value="${studentWithoutGroup.name}"></option>
+                                    th:value="${studentWithoutGroup.name}">
+                            </option>
                         </c>
                     </select>
                 </td>
@@ -102,6 +103,8 @@ button {
   font-size: 16px;
   margin: 4px 2px;
 }
+
+
 
 
 

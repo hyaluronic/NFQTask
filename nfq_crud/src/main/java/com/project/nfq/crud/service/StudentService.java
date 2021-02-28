@@ -18,9 +18,9 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
-    public List<Student> saveStudents(List<Student> students){
-        return studentRepository.saveAll(students);
-    }
+//    public List<Student> saveStudents(List<Student> students){
+//        return studentRepository.saveAll(students);
+//    }
 
     public List<Student> getStudents(){
         List<Student> students;
@@ -28,7 +28,7 @@ public class StudentService {
         return students;
     }
 
-    public List<Student> getStudentsByProject(Integer projectId){
+    public List<Student> getStudentsByProjectId(Integer projectId){
         List<Student> students = getStudents();
         students.removeIf(student -> student.getProject().getId() != projectId);
         return students;
@@ -38,9 +38,9 @@ public class StudentService {
         return studentRepository.findById(id).orElse(null);
     }
 
-    public Student getStudentByName(String name){
-        return studentRepository.findByName(name);
-    }
+//    public Student getStudentByName(String name){
+//        return studentRepository.findByName(name);
+//    }
 
     public void deleteStudent(int id)
     {

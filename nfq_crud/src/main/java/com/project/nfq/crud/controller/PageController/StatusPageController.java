@@ -28,7 +28,7 @@ public class StatusPageController {
         Project project = projectService.getProjectById(id);
 /*        students = studentService.getStudentsByProject(project.getId());
         project.setStudents(students);*/
-        List<Student> studentsWithoutGroup = studentService.getStudentsByProject(id);
+        List<Student> studentsWithoutGroup = studentService.getStudentsByProjectId(id);
         studentsWithoutGroup.removeIf(student -> student.getGroup() != null);
         model.addAttribute("project", project);
         model.addAttribute("studentsWithoutGroup", studentsWithoutGroup);
@@ -37,7 +37,7 @@ public class StatusPageController {
 
     @PostMapping("/addStudent")
     public String addStudent(String studentName, Integer projectId) {
-        List<Student> students = studentService.getStudentsByProject(projectId);
+        List<Student> students = studentService.getStudentsByProjectId(projectId);
         if (!studentName.isBlank() && ValidationService.isStudentNameValid(studentName, students)){
             Project project = projectService.getProjectById(projectId);
             Student student = new Student();

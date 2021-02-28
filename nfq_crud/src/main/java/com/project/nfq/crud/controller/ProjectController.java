@@ -18,30 +18,30 @@ public class ProjectController {
         return service.saveProject(project);
     }*/
 
-    @PostMapping("/addProjects")
-    public List<Project> addStudents(@RequestBody List<Project> projects){
-        return service.saveProjects(projects);
-    }
-
-    @GetMapping("/projects")
-    public List<Project> findAllStudents(){
-        return service.getProjects();
-    }
-
-    @GetMapping("/project/{id}")
-    public Project findStudentById(@PathVariable int id){
-        return service.getProjectById(id);
-    }
-
-    @GetMapping("/project/{name}")
-    public Project findProjectByName(@PathVariable String name){
-        return service.getProjectByName(name);
-    }
-
-    @PutMapping("/updateProject")
-    public Project updateProject(@RequestBody Project project){
-        return service.updateProject(project);
-    }
+//    @PostMapping("/addProjects")
+//    public List<Project> addStudents(@RequestBody List<Project> projects){
+//        return service.saveProjects(projects);
+//    }
+//
+//    @GetMapping("/projects")
+//    public List<Project> findAllStudents(){
+//        return service.getProjects();
+//    }
+//
+//    @GetMapping("/project/{id}")
+//    public Project findStudentById(@PathVariable int id){
+//        return service.getProjectById(id);
+//    }
+//
+//    @GetMapping("/project/{name}")
+//    public Project findProjectByName(@PathVariable String name){
+//        return service.getProjectByName(name);
+//    }
+//
+//    @PutMapping("/updateProject")
+//    public Project updateProject(@RequestBody Project project){
+//        return service.updateProject(project);
+//    }
 
 /*    @DeleteMapping("deleteProject/{id}")
     public String deleteProject(int id){

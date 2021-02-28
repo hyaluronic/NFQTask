@@ -18,30 +18,30 @@ public class StudentController {
         return service.saveStudent(student);
     }*/
 
-    @PostMapping("/addStudents")
-    public List<Student> addStudents(@RequestBody List<Student> students){
-        return service.saveStudents(students);
-    }
-
-    @GetMapping("/students")
-    public List<Student> findAllStudents(){
-        return service.getStudents();
-    }
-
-    @GetMapping("/student/{id}")
-    public Student findStudentById(@PathVariable int id){
-        return service.getStudentById(id);
-    }
-
-    @GetMapping("/student/{name}")
-    public Student findStudentByName(@PathVariable String name){
-        return service.getStudentByName(name);
-    }
-
-    @PutMapping("/updateStudent")
-    public Student updateStudent(@RequestBody Student student){
-        return service.updateStudent(student);
-    }
+//    @PostMapping("/addStudents")
+//    public List<Student> addStudents(@RequestBody List<Student> students){
+//        return service.saveStudents(students);
+//    }
+//
+//    @GetMapping("/students")
+//    public List<Student> findAllStudents(){
+//        return service.getStudents();
+//    }
+//
+//    @GetMapping("/student/{id}")
+//    public Student findStudentById(@PathVariable int id){
+//        return service.getStudentById(id);
+//    }
+//
+//    @GetMapping("/student/{name}")
+//    public Student findStudentByName(@PathVariable String name){
+//        return service.getStudentByName(name);
+//    }
+//
+//    @PutMapping("/updateStudent")
+//    public Student updateStudent(@RequestBody Student student){
+//        return service.updateStudent(student);
+//    }
 
 /*    @DeleteMapping("deleteStudent/{id}")
     public String deleteStudent(int id){
