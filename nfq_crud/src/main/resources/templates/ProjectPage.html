@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home Page</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+</head>
+<body>
+
+<h1></h1>
+
+<form action="/addProject" method="post" >
+    Project Name:   <input name="projectName"/>
+    Number of groups:   <input name="numberOfGroups"/>
+    Students per group:   <input name="studentsPerGroup"/>
+    <input type="submit" value="Submit">
+</form>
+
+<table style="width:25%">
+    <caption style="font-size:39px;">Projects:</caption>
+    <tr>
+        <th style="width:55%">Project name</th>
+        <th style="width:19%">Action</th>
+    </tr>
+    <div th:each="project,iterStat : ${projects}">
+        <tr>
+
+            <td ><a th:href="@{statusPage/{id}(id = ${project.id})}" th:text="${project.name}"></a></td>
+            <td>delete</td>
+        </tr>
+    </div>
+</table>
+</body>
+<style>
+table, th, td {
+    border: 1px solid black;
+  border-collapse: collapse;
+}
+th, caption, td {
+  text-align: left;
+}
+</style>
+</html>

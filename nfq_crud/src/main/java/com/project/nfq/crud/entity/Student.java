@@ -19,10 +19,4 @@ public class Student {
     @ManyToOne
     @JoinColumn(name="project_id")
     private Project project;
-
-    public Student(String name, Project project)
-    {
-        this.name=name;
-        this.project=project;
-    }
 }

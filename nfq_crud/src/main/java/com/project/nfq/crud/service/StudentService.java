@@ -33,6 +33,10 @@ public class StudentService {
         return studentRepository.findByName(name);
     }
 
+    public List<Student> getStudentsByProject(Integer projectId){
+        return studentRepository.findAllByProject(projectId);
+    }
+
     public String deleteStudent(int id)
     {
         studentRepository.deleteById(id);

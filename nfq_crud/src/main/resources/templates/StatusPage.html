@@ -31,6 +31,7 @@
 </form>-->
 <form action="/statusPage" method="post" >
     Name:   <input name="studentName"/>
+    <input type="hidden" name="projectId" th:value="${project.id}"/>
     <input type="submit" value="Submit">
 </form>
 <!--<td>

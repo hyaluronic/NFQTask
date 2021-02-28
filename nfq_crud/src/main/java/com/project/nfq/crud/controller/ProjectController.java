@@ -13,10 +13,10 @@ public class ProjectController {
     @Autowired
     private ProjectService service;
 
-    @PostMapping("/addProject")
+/*    @PostMapping("/addProject")
     public Project addStudent(@RequestBody Project project){
         return service.saveProject(project);
-    }
+    }*/
 
     @PostMapping("/addProjects")
     public List<Project> addStudents(@RequestBody List<Project> projects){
