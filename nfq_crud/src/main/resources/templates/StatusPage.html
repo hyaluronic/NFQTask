@@ -22,12 +22,12 @@
     </tr>
     <div th:each="student,iterStat : ${project.students}">
         <tr>
-            <td th:text="${student.name}"/>
-            <td th:text="${student.group} ? 'Group #'+ ${student.group} : '-'"/>
+            <td th:text="${student.name}"></td>
+            <td th:text="${student.group} ? 'Group #'+ ${student.group} : '-'"></td>
             <form action="/deleteStudent" method="post">
                 <td>
-                    <input type="hidden" name="studentId" th:value="${student.id}"/>
-                    <input type="hidden" name="projectId" th:value="${project.id}"/>
+                    <input name="studentId" th:value="${student.id}" type="hidden"/>
+                    <input name="projectId" th:value="${project.id}" type="hidden"/>
                     <input type="submit" value="delete">
                 </td>
             </form>
@@ -51,19 +51,36 @@
 <div th:each="i : ${#numbers.sequence( 1, project.numberOfGroups, 1)}">
     <table style="width:15%; margin: 4px 2px;">
         <tr>
-            <th style="text-align:center;"><p th:text="'GROUP #' + ${i}"/></th>
+            <th colspan="2" style="text-align:center;"><p th:text="'GROUP #' + ${i}"/></th>
         </tr>
-        <div th:each="j : ${#numbers.sequence( 1, project.studentsPerGroup, 1)}">
+        <!--        <div th:each="j : ${#numbers.sequence( 1, project.studentsPerGroup, 1)}">-->
+        <div th:each="student,iterStat : ${project.students}">
             <tr>
-                <td style="text-align:left">
-                    <select style="width:100%"  name="studentIds" id="studentIds">
-                    <c   th:each="student,iterStat : ${project.students}">
-                        <option  th:value="${student.name}" th:text="${student.name}"></option>
-                    </c>
+                    <span th:if="${student.group == i}">
+                        <td th:text="${student.name}"></td>
+                        <form action="/deleteFromGroup" method="post">
+                            <td style="text-align:center" width="3%">
+                                <input name="studentId" th:value="${student.id}" type="hidden"/>
+                                <input name="projectId" th:value="${project.id}" type="hidden"/>
+                                <input type="submit" value="X">
+                            </td>
+                        </form>
+                    </span>
+            </tr>
+        </div>
+        <div th:each="j : ${#numbers.sequence(1, project.studentsPerGroup, 1)}">
+            <tr>
+                <td colspan="2" style="text-align:left">
+                    <select id="studentIds" name="studentIds" style="width:100%">
+                        <c th:each="studentWithoutGroup,iterStat : ${studentsWithoutGroup}">
+                            <option th:text="${studentWithoutGroup.name}"
+                                    th:value="${studentWithoutGroup.name}"></option>
+                        </c>
                     </select>
                 </td>
             </tr>
         </div>
+        <!--        </div>-->
     </table>
 </div>
 </body>
@@ -85,6 +102,10 @@ button {
   font-size: 16px;
   margin: 4px 2px;
 }
+
+
+
+
 
 </style>
 </html>

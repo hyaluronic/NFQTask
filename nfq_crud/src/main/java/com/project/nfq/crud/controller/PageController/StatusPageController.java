@@ -17,8 +17,6 @@ import java.util.List;
 @Controller
 public class StatusPageController {
 
-
-    //    private final List<Student> students = Collections.emptyList();
     @Autowired
     private ProjectService projectService;
     @Autowired
@@ -30,7 +28,10 @@ public class StatusPageController {
         Project project = projectService.getProjectById(id);
 /*        students = studentService.getStudentsByProject(project.getId());
         project.setStudents(students);*/
+        List<Student> studentsWithoutGroup = studentService.getStudentsByProject(id);
+        studentsWithoutGroup.removeIf(student -> student.getGroup() != null);
         model.addAttribute("project", project);
+        model.addAttribute("studentsWithoutGroup", studentsWithoutGroup);
         return "statusPage";
     }
 
@@ -48,8 +49,16 @@ public class StatusPageController {
     }
 
     @PostMapping("/deleteStudent")
-    public String addStudent(Integer studentId, Integer projectId) {
+    public String deleteStudent(Integer studentId, Integer projectId) {
         studentService.deleteStudent(studentId);
+        return "redirect:/statusPage/" + projectId;
+    }
+
+    @PostMapping("/deleteFromGroup")
+    public String deleteStudentFromGroup(Integer studentId, Integer projectId) {
+        Student student = studentService.getStudentById(studentId);
+        student.setGroup(null);
+        studentService.updateStudent(student);
         return "redirect:/statusPage/" + projectId;
     }
 }
