@@ -55,7 +55,13 @@
         </tr>
         <div th:each="j : ${#numbers.sequence( 1, project.studentsPerGroup, 1)}">
             <tr>
-                <td><p th:text="AAA"/></td>
+                <td style="text-align:left">
+                    <select style="width:100%"  name="studentIds" id="studentIds">
+                    <c   th:each="student,iterStat : ${project.students}">
+                        <option  th:value="${student.name}" th:text="${student.name}"></option>
+                    </c>
+                    </select>
+                </td>
             </tr>
         </div>
     </table>
