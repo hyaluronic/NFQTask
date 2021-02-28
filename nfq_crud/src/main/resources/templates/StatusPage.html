@@ -21,7 +21,13 @@
         <tr>
             <td th:text="${student.name}"/>
             <td th:text="${student.group} ? 'Group #'+ ${student.group} : '-'"/>
-            <td href="/deleteStudent" method="post">delete</td>
+            <form action="/deleteStudent" method="post">
+                <td>
+                    <input type="hidden" name="studentId" th:value="${student.id}"/>
+                    <input type="hidden" name="projectId" th:value="${project.id}"/>
+                    <input type="submit" value="delete">
+                </td>
+            </form>
         </tr>
     </div>
 </table>
@@ -29,9 +35,9 @@
     <p>Name: <input type="text" th:field="${name}" placeholder="name" /> </p>
     <p><input id="addStudent" type="submit" value="Add" /> <input type="reset" value="Reset" /></p>
 </form>-->
-<form action="/statusPage" method="post" >
-    Name:   <input name="studentName"/>
-    <input type="hidden" name="projectId" th:value="${project.id}"/>
+<form action="/addStudent" method="post">
+    Name: <input name="studentName"/>
+    <input name="projectId" th:value="${project.id}" type="hidden"/>
     <input type="submit" value="Submit">
 </form>
 <!--<td>
@@ -74,6 +80,7 @@ button {
   font-size: 16px;
   margin: 4px 2px;
 }
+
 </style>
 </html>
 <!--

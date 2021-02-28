@@ -43,8 +43,8 @@ public class StudentController {
         return service.updateStudent(student);
     }
 
-    @DeleteMapping("deleteStudent/{id}")
+/*    @DeleteMapping("deleteStudent/{id}")
     public String deleteStudent(int id){
         return service.deleteStudent(id);
-    }
+    }*/
 }

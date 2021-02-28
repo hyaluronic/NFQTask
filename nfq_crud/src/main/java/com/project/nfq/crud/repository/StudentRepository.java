@@ -8,5 +8,5 @@ import java.util.List;
 public interface StudentRepository extends JpaRepository<Student, Integer> {
     Student findByName(String name);
 
-    List<Student> findAllByProject(Integer projectId);
+    List<Student> findAll();
 }

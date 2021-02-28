@@ -43,8 +43,8 @@ public class ProjectController {
         return service.updateProject(project);
     }
 
-    @DeleteMapping("deleteProject/{id}")
+/*    @DeleteMapping("deleteProject/{id}")
     public String deleteProject(int id){
         return service.deleteProject(id);
-    }
+    }*/
 }

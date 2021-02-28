@@ -7,7 +7,10 @@ import com.project.nfq.crud.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collections;
 import java.util.List;
@@ -15,8 +18,8 @@ import java.util.List;
 @Controller
 public class StatusPageController {
 
-    private Project project;
-    private List<Student> students = Collections.emptyList();
+
+    private final List<Student> students = Collections.emptyList();
     @Autowired
     private ProjectService projectService;
     @Autowired
@@ -25,7 +28,7 @@ public class StatusPageController {
 
     @GetMapping("/statusPage/{id}")
     public String statusPage(@PathVariable("id") int id, Model model) {
-        project = projectService.getProjectById(id);
+        Project project = projectService.getProjectById(id);
 /*        students = studentService.getStudentsByProject(project.getId());
         project.setStudents(students);*/
         model.addAttribute("project", project);
@@ -33,13 +36,19 @@ public class StatusPageController {
     }
 
     @PostMapping("/addStudent")
-    public String statusPageAddStudent(String studentName, Integer projectId) {
-        project = projectService.getProjectById(projectId);
+    public String addStudent(String studentName, Integer projectId) {
+        Project project = projectService.getProjectById(projectId);
         Student student = new Student();
         student.setName(studentName);
         student.setProject(project);
         studentService.saveStudent(student);
-        return "redirect:/statusPage/{id}";
+        return "redirect:/statusPage/" + projectId;
+    }
+
+    @PostMapping("/deleteStudent")
+    public String addStudent(Integer studentId, Integer projectId) {
+        studentService.deleteStudent(studentId);
+        return "redirect:/statusPage/" + projectId;
     }
 }
 

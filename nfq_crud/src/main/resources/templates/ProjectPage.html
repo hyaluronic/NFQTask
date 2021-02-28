@@ -25,7 +25,12 @@
         <tr>
 
             <td ><a th:href="@{statusPage/{id}(id = ${project.id})}" th:text="${project.name}"></a></td>
-            <td>delete</td>
+            <form action="/deleteProject" method="post">
+                <td>
+                    <input type="hidden" name="projectId" th:value="${project.id}"/>
+                    <input type="submit" value="delete">
+                </td>
+            </form>
         </tr>
     </div>
 </table>
@@ -37,6 +42,9 @@ table, th, td {
 }
 th, caption, td {
   text-align: left;
+}
+input {
+  text-align: center;
 }
 </style>
 </html>

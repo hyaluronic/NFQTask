@@ -5,6 +5,7 @@ import com.project.nfq.crud.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -22,7 +23,9 @@ public class StudentService {
     }
 
     public List<Student> getStudents(){
-        return studentRepository.findAll();
+        List<Student> students;
+        students = studentRepository.findAll();
+        return students;
     }
 
     public Student getStudentById(int id){
@@ -33,14 +36,20 @@ public class StudentService {
         return studentRepository.findByName(name);
     }
 
-    public List<Student> getStudentsByProject(Integer projectId){
-        return studentRepository.findAllByProject(projectId);
-    }
-
-    public String deleteStudent(int id)
+    public void deleteStudent(int id)
     {
         studentRepository.deleteById(id);
-        return "product removed " + id;
+    }
+
+    public void deleteStudentsByProjectId(Integer projectId)
+    {
+        List<Student> students = getStudents();
+        for (Student student : students) {
+            if(student.getProject().getId().equals(projectId))
+            {
+                deleteStudent(student.getId());
+            }
+        }
     }
 
     public Student updateStudent(Student student)
@@ -48,6 +57,7 @@ public class StudentService {
         Student existingStudent = studentRepository.findById(student.getId()).orElse(null);
         existingStudent.setName(student.getName());
         existingStudent.setGroup(student.getGroup());
+        existingStudent.setProject(student.getProject());
         return studentRepository.save(existingStudent);
     }
 }

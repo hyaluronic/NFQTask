@@ -20,6 +20,8 @@ public class ProjectPageController {
     private List<Project> projects = Collections.emptyList();
     @Autowired
     private ProjectService projectService;
+    @Autowired
+    private StudentService studentService;
 
 
     @GetMapping("/")
@@ -30,12 +32,19 @@ public class ProjectPageController {
     }
 
     @PostMapping("/addProject")
-    public String statusPageAddStudent(String projectName, Integer numberOfGroups, Integer studentsPerGroup) {
+    public String addProject(String projectName, Integer numberOfGroups, Integer studentsPerGroup) {
         Project project = new Project();
         project.setName(projectName);
         project.setNumberOfGroups(numberOfGroups);
         project.setStudentsPerGroup(studentsPerGroup);
         projectService.saveProject(project);
+        return "redirect:/";
+    }
+
+    @PostMapping("/deleteProject")
+    public String addStudent(Integer projectId) {
+        studentService.deleteStudentsByProjectId(projectId);
+        projectService.deleteProject(projectId);
         return "redirect:/";
     }
 }
