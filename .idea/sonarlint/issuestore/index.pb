@@ -11,3 +11,11 @@ q
 Anfqdemo/src/main/java/nfq/project/nfqdemo/NfqdemoApplication.java,4\f\4fd45b7b1899d3c22e22512193fa816d83b5eda4
 {
 Knfqdemo/src/main/java/nfq/project/nfqdemo/Repository/StudentRepository.java,9\d\9d04e47ea1614f9bf2ea779690bfed95002d2e7e
+v
+Fnfqdemo/src/main/java/nfq/project/nfqdemo/Domain/Entities/Teacher.java,6\c\6c434c97d555553c340da29496eb2cba3ef7b428
+v
+Fnfqdemo/src/main/java/nfq/project/nfqdemo/Domain/Entities/Student.java,b\4\b456bc3dde8a8ba772c0c01c58c6a1b3759ff1b7
+v
+Fnfqdemo/src/main/java/nfq/project/nfqdemo/Domain/Entities/Project.java,a\3\a379bfaaa34a29ba152be5895800ee24d0f1ed4d
+
+Onfqdemo/src/main/java/nfq/project/nfqdemo/Controllers/StatusPageController.java,d\a\da88d2c6914f60199a90c1dd1873904922e02f2c

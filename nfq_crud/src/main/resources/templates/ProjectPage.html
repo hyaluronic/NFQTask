@@ -12,23 +12,24 @@
     Project Name:   <input name="projectName"/>
     Number of groups:   <input name="numberOfGroups"/>
     Students per group:   <input name="studentsPerGroup"/>
-    <input type="submit" value="Submit">
+    <input type="submit" value="Add project">
 </form>
 
 <table style="width:25%">
     <caption style="font-size:39px;">Projects:</caption>
     <tr>
-        <th style="width:55%">Project name</th>
-        <th style="width:19%">Action</th>
+        <th style="wifth:5%">Id</th>
+        <th style="width:75%">Project name</th>
+        <th style="width:20%">Action</th>
     </tr>
     <div th:each="project,iterStat : ${projects}">
         <tr>
-
-            <td ><a th:href="@{statusPage/{id}(id = ${project.id})}" th:text="${project.name}"></a></td>
+            <td><a th:href="@{statusPage/{id}(id = ${project.id})}" th:text="${project.id}"></a></td>
+            <td><a th:href="@{statusPage/{id}(id = ${project.id})}" th:text="${project.name}"></a></td>
             <form action="/deleteProject" method="post">
                 <td>
                     <input type="hidden" name="projectId" th:value="${project.id}"/>
-                    <input type="submit" value="delete">
+                    <input style="text-align: center" type="submit" value="delete">
                 </td>
             </form>
         </tr>
@@ -42,9 +43,6 @@ table, th, td {
 }
 th, caption, td {
   text-align: left;
-}
-input {
-  text-align: center;
 }
 </style>
 </html>

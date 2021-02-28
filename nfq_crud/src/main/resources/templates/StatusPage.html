@@ -5,6 +5,9 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
 </head>
 <body>
+<form action="/" method="get">
+    <input type="submit" value="Back to projects">
+</form>
 <h3 th:text="'Project name: ' + ${project.name}"/>
 <h3 th:text="'Number of groups: ' + ${project.numberOfGroups}"/>
 <h3 th:text="'Students per group: ' + ${project.studentsPerGroup}"/>
@@ -31,14 +34,10 @@
         </tr>
     </div>
 </table>
-<!--<form id="addStudent-form" action="#" th:action="@{/statusPage}" th:object="${project}" method="post">
-    <p>Name: <input type="text" th:field="${name}" placeholder="name" /> </p>
-    <p><input id="addStudent" type="submit" value="Add" /> <input type="reset" value="Reset" /></p>
-</form>-->
 <form action="/addStudent" method="post">
     Name: <input name="studentName"/>
     <input name="projectId" th:value="${project.id}" type="hidden"/>
-    <input type="submit" value="Submit">
+    <input type="submit" value="Add Student">
 </form>
 <!--<td>
     <input type="text" id="fname" name="fname" >Name</input>

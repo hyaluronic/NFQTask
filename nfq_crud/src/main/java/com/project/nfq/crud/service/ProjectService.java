@@ -34,10 +34,9 @@ public class ProjectService {
         return projectRepository.findByName(name);
     }
 
-    public String deleteProject(int id)
+    public void deleteProject(int id)
     {
         projectRepository.deleteById(id);
-        return "product removed " + id;
     }
 
     public Project updateProject(Project project)

@@ -37,11 +37,13 @@ public class StatusPageController {
 
     @PostMapping("/addStudent")
     public String addStudent(String studentName, Integer projectId) {
-        Project project = projectService.getProjectById(projectId);
-        Student student = new Student();
-        student.setName(studentName);
-        student.setProject(project);
-        studentService.saveStudent(student);
+        if(!studentName.isBlank()&&studentService.getStudentByName(studentName)==null){
+            Project project = projectService.getProjectById(projectId);
+            Student student = new Student();
+            student.setName(studentName);
+            student.setProject(project);
+            studentService.saveStudent(student);
+        }
         return "redirect:/statusPage/" + projectId;
     }
 
