@@ -11,9 +11,4 @@ public class ValidationService {
         students.removeIf(student -> !student.getName().equals(studentName));
         return students.isEmpty();
     }
-
-    public static boolean areGroupsValid(Project project) {
-
-        return true;
-    }
 }

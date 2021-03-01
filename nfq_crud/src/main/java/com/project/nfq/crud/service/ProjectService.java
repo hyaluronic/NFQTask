@@ -18,9 +18,6 @@ public class ProjectService {
         return projectRepository.save(project);
     }
 
-//    public List<Project> saveProjects(List<Project> projects){
-//        return projectRepository.saveAll(projects);
-//    }
 
     public List<Project> getProjects(){
         return projectRepository.findAll();
@@ -30,22 +27,9 @@ public class ProjectService {
         return projectRepository.findById(id).orElse(null);
     }
 
-//    public Project getProjectByName(String name){
-//        return projectRepository.findByName(name);
-//    }
-
     public void deleteProject(int id)
     {
         projectRepository.deleteById(id);
     }
 
-//    public Project updateProject(Project project)
-//    {
-//        Project existingProject = projectRepository.findById(project.getId()).orElse(null);
-//        existingProject.setName(project.getName());
-//        existingProject.setStudents(project.getStudents());
-//        existingProject.setStudentsPerGroup(project.getStudentsPerGroup());
-//        existingProject.setNumberOfGroups(project.getNumberOfGroups());
-//        return projectRepository.save(existingProject);
-//    }
 }
