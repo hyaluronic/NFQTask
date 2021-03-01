@@ -3,21 +3,23 @@
 <head>
     <title>Home Page</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
 </head>
 <body>
 
 <h1></h1>
 
-<form action="/addProject" method="post" >
+<form style="margin-top:40px;" action="/addProject" method="post" >
     Project Name:   <input name="projectName"/>
     Number of groups:   <input name="numberOfGroups"/>
     Students per group:   <input name="studentsPerGroup"/>
     <input type="submit" value="Add project">
 </form>
 
-<table style="width:25%">
-    <caption style="font-size:39px;">Projects:</caption>
-    <tr>
+<h1 style="margin-top:40px;">Projects:</h1>
+<table class="table" style="width:25%">
+    <tr class="thead-dark">
         <th style="wifth:5%">Id</th>
         <th style="width:75%">Project name</th>
         <th style="width:20%">Action</th>

@@ -8,18 +8,18 @@
 </head>
 <body>
 <form action="/" method="get">
-    <input type="submit" value="Back to projects">
+    <input class="btn btn-dark" type="submit" value="Back to projects">
 </form>
-<h3 th:text="'Project name: ' + ${project.name}"/>
-<h3 th:text="'Number of groups: ' + ${project.numberOfGroups}"/>
-<h3 th:text="'Students per group: ' + ${project.studentsPerGroup}"/>
+<h3 style="margin-top:40px" class="font-weight-bold" th:text="'Project name: ' + ${project.name}"/>
+<h3 class="font-weight-bold" th:text="'Number of groups: ' + ${project.numberOfGroups}"/>
+<h3 class="font-weight-bold" th:text="'Students per group: ' + ${project.studentsPerGroup}"/>
 <h1></h1>
 
+<h1 style="margin-top:40px">Students</h1>
 <form action="/addStudentToGroup" method="post" modelAttribute="project">
     <input th:field="${project.id}" type="hidden">
-    <table class="table" style="width:25%">
-<!--        <caption style="font-size:39px;">Students</caption>-->
-        <tr>
+    <table style="width:25%" class="table" >
+        <tr class="thead-dark">
             <th scope="row" style="width:55%">Student</th>
             <th scope="row">Group</th>
             <th scope="row" style="width:19%">Actions</th>
@@ -34,7 +34,7 @@
                     <td th:if="${student.group == null}">
                         <span>
                             <select style="width:100%" th:field="*{project.students[__${iterStat.index}__].group}">
-                            <option placeholder="-" selected="selected" value="0"></option>
+                            <option placeholder="-" selected="selected" value="0">-</option>
                                 <!--                                        th:each="notFullGroup,iterStat : ${notFullGroups}"-->
                                 <option th:each="i : ${#numbers.sequence( 1, project.numberOfGroups, 1)}"
                                         th:text="'Group #'+ ${i}"
@@ -53,28 +53,28 @@
                         <td>
                             <input name="studentId" th:value="${student.id}" type="hidden"/>
                             <input name="projectId" th:value="${project.id}" type="hidden"/>
-                            <input type="submit" value="delete">
+                            <input class="btn btn-secondary" type="submit" value="delete">
                         </td>
                     </form>
                 </tr>
             </div>
     </table>
     <div style="margin-left: 325px;">
-        <input type="submit" value="submit changes">
+        <input class="btn btn-primary" type="submit" value="submit changes">
     </div>
 </form>
 </div>
 <form action="/addStudent" method="post">
-    Name: <input name="studentName"/>
+    <h3>Name: </h3><input style="width:20%" class="input-group mb-3" name="studentName"/>
     <input name="projectId" th:value="${project.id}" type="hidden"/>
-    <input type="submit" value="Add Student">
+    <input class="btn btn-primary" type="submit" value="Add Student">
 </form>
 
-<h1>Groups</h1>
+<h1 style="margin-top:40px">Groups</h1>
 <div th:each="i : ${#numbers.sequence( 1, project.numberOfGroups, 1)}">
-    <table style="width:15%; margin: 4px 2px;">
+    <table clas="table" style="width:15%; margin: 4px 2px;">
         <tr>
-            <th colspan="2" style="text-align:center;"><p th:text="'GROUP #' + ${i}"/></th>
+            <th class="thead-dark" colspan="2" style="text-align:center;"><p th:text="'GROUP #' + ${i}"/></th>
         </tr>
         <div th:each="student,iterStat : ${project.students}">
             <tr>
@@ -111,6 +111,8 @@ button {
   font-size: 16px;
   margin: 4px 2px;
 }
-
+h3 {
+class="text-justify";
+}
 </style>
 </html>

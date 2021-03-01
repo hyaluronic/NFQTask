@@ -1,15 +1,14 @@
 package com.project.nfq.crud.controller.PageController;
 
 import com.project.nfq.crud.entity.Project;
-import com.project.nfq.crud.entity.Student;
 import com.project.nfq.crud.service.ProjectService;
 import com.project.nfq.crud.service.StudentService;
+import com.project.nfq.crud.service.ValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,11 +32,13 @@ public class ProjectPageController {
 
     @PostMapping("/addProject")
     public String addProject(String projectName, Integer numberOfGroups, Integer studentsPerGroup) {
-        Project project = new Project();
-        project.setName(projectName);
-        project.setNumberOfGroups(numberOfGroups);
-        project.setStudentsPerGroup(studentsPerGroup);
-        projectService.saveProject(project);
+        if (ValidationService.isProjectInputValid(projectName, numberOfGroups, studentsPerGroup)) {
+            Project project = new Project();
+            project.setName(projectName);
+            project.setNumberOfGroups(numberOfGroups);
+            project.setStudentsPerGroup(studentsPerGroup);
+            projectService.saveProject(project);
+        }
         return "redirect:/";
     }
 
