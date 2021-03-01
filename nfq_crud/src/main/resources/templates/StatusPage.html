@@ -13,27 +13,55 @@
 <h3 th:text="'Students per group: ' + ${project.studentsPerGroup}"/>
 <h1></h1>
 
-<table style="width:25%">
-    <caption style="font-size:39px;">Students</caption>
-    <tr>
-        <th style="width:55%">Student</th>
-        <th>Group</th>
-        <th style="width:19%">Actions</th>
-    </tr>
-    <div th:each="student,iterStat : ${project.students}">
+<form action="/addStudentToGroup" method="post" modelAttribute="project">
+    <input type="hidden" th:field="${project.id}">
+    <table style="width:25%">
+        <caption style="font-size:39px;">Students</caption>
         <tr>
-            <td th:text="${student.name}"></td>
-            <td th:text="${student.group} ? 'Group #'+ ${student.group} : '-'"></td>
-            <form action="/deleteStudent" method="post">
-                <td>
-                    <input name="studentId" th:value="${student.id}" type="hidden"/>
-                    <input name="projectId" th:value="${project.id}" type="hidden"/>
-                    <input type="submit" value="delete">
-                </td>
-            </form>
+            <th style="width:55%">Student</th>
+            <th>Group</th>
+            <th style="width:19%">Actions</th>
         </tr>
+        <div id="groupsOfStudents">
+            <div id="studentIds" th:each="student,iterStat : ${project.students}">
+                <tr>
+                    <input type="hidden" th:field="*{project.students[__${iterStat.index}__].id}" />
+                    <input type="hidden" th:field="*{project.students[__${iterStat.index}__].name}" />
+                    <td id="studentName" th:text="${student.name}" th:value="${student.id}"></td>
+                    <!--            <td th:text="${student.group} ? 'Group #'+ ${student.group} : '-'">-->
+                    <td th:if="${student.group == null}">
+                        <span>
+                            <select th:field="*{project.students[__${iterStat.index}__].group}" style="width:100%">
+                            <option placeholder="-" selected="selected" value="0"></option>
+                                <!--                                        th:each="notFullGroup,iterStat : ${notFullGroups}"-->
+                                <option th:each="i : ${#numbers.sequence( 1, project.numberOfGroups, 1)}"
+                                        th:text="'Group #'+ ${i}"
+                                        th:value="${i}"></option>
+                            </select>
+                        </span>
+                    </td>
+                    <td th:if="${student.group != null}">
+                        <span>
+                            <c th:text="'Group #' + ${student.group}"></c>
+                            <input type="hidden" th:field="*{project.students[__${iterStat.index}__].group}" >
+                        </span>
+                    </td>
+
+                    <form action="/deleteStudent" method="post">
+                        <td>
+                            <input name="studentId" th:value="${student.id}" type="hidden"/>
+                            <input name="projectId" th:value="${project.id}" type="hidden"/>
+                            <input type="submit" value="delete">
+                        </td>
+                    </form>
+                </tr>
+            </div>
+    </table>
+    <div style="margin-left: 325px;">
+        <input type="submit" value="submit changes">
     </div>
-</table>
+</form>
+</div>
 <form action="/addStudent" method="post">
     Name: <input name="studentName"/>
     <input name="projectId" th:value="${project.id}" type="hidden"/>
@@ -68,19 +96,18 @@
                     </span>
             </tr>
         </div>
-        <div th:each="j : ${#numbers.sequence(1, project.studentsPerGroup, 1)}">
-            <tr>
+<!--        <div th:each="j : ${#numbers.sequence(1, project.studentsPerGroup, 1)}">-->
+            <!--<tr >
                 <td colspan="2" style="text-align:left">
                     <select id="studentIds" name="studentIds" style="width:100%">
-                        <c th:each="studentWithoutGroup,iterStat : ${studentsWithoutGroup}">
-                            <option th:text="${studentWithoutGroup.name}"
-                                    th:value="${studentWithoutGroup.name}">
-                            </option>
-                        </c>
+                        <option th:each="studentWithoutGroup,iterStat : ${studentsWithoutGroup}"
+                                th:text="${studentWithoutGroup.name}"
+                                th:value="${studentWithoutGroup.name}">
+                        </option>
                     </select>
                 </td>
-            </tr>
-        </div>
+            </tr>-->
+<!--        </div>-->
         <!--        </div>-->
     </table>
 </div>

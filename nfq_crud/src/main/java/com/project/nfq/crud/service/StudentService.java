@@ -28,9 +28,15 @@ public class StudentService {
         return students;
     }
 
+    public List<Student> getStudentByGroup(Integer groupNumber, Integer projectId){
+        List<Student> students = getStudentsByProjectId(projectId);
+        students.removeIf(student -> !student.getGroup().equals(groupNumber));
+        return students;
+    }
+
     public List<Student> getStudentsByProjectId(Integer projectId){
         List<Student> students = getStudents();
-        students.removeIf(student -> student.getProject().getId() != projectId);
+        students.removeIf(student -> !student.getProject().getId().equals(projectId));
         return students;
     }
 

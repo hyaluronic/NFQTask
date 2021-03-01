@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -28,6 +29,12 @@ public class StatusPageController {
         Project project = projectService.getProjectById(id);
 /*        students = studentService.getStudentsByProject(project.getId());
         project.setStudents(students);*/
+//        List<Integer> fullGroups = new java.util.ArrayList<>(Collections.emptyList());
+//        for (Integer i = 1; i <= project.getNumberOfGroups(); i++) {
+//            if (studentService.getStudentByGroup(i, project.getId()).size() < project.getStudentsPerGroup()) {
+//                fullGroups.add(i);
+//            }
+//        }
         List<Student> studentsWithoutGroup = studentService.getStudentsByProjectId(id);
         studentsWithoutGroup.removeIf(student -> student.getGroup() != null);
         model.addAttribute("project", project);
@@ -38,10 +45,11 @@ public class StatusPageController {
     @PostMapping("/addStudent")
     public String addStudent(String studentName, Integer projectId) {
         List<Student> students = studentService.getStudentsByProjectId(projectId);
-        if (!studentName.isBlank() && ValidationService.isStudentNameValid(studentName, students)){
+        if (!studentName.isBlank() && ValidationService.isStudentNameValid(studentName, students)) {
             Project project = projectService.getProjectById(projectId);
             Student student = new Student();
             student.setName(studentName);
+            student.setGroup(1);
             student.setProject(project);
             studentService.saveStudent(student);
         }
@@ -52,6 +60,22 @@ public class StatusPageController {
     public String deleteStudent(Integer studentId, Integer projectId) {
         studentService.deleteStudent(studentId);
         return "redirect:/statusPage/" + projectId;
+    }
+
+    @PostMapping(value = "/addStudentToGroup")
+    public String updateStudent(@ModelAttribute Project project) {
+        if (project.getId() != null) {
+            for (Student student : project.getStudents()) {
+                if (student.getGroup() != 0) {
+                    student.setProject(project);
+                    studentService.updateStudent(student);
+                }
+            }
+        } else {
+            return "redirect:/error";
+
+        }
+        return "redirect:/statusPage/" + project.getId();
     }
 
     @PostMapping("/deleteFromGroup")
