@@ -1,6 +1,6 @@
 # A task for nfq internship
 
-First of all, I would like to emphasize that the assigned task requires the knowledge and skills I acquired while studying the program systems of Vilnius University. Reflecting on the final result, I compiled the task course: 
+First of all, I would like to emphasize that the assigned task requires the knowledge and skills I acquired while studying Software engineering in Vilnius University. Reflecting on the final result, I compiled the task course: 
 
 Technical choices:
 Used spring boot as it is easy to start with;
