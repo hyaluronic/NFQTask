@@ -1,37 +1,43 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Status Page</title>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
-    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
-</head>
-<body>
-<form action="/" method="get">
-    <input class="btn btn-dark" type="submit" value="Back to projects">
-</form>
-<h3 style="margin-top:40px" class="font-weight-bold" th:text="'Project name: ' + ${project.name}"/>
-<h3 class="font-weight-bold" th:text="'Number of groups: ' + ${project.numberOfGroups}"/>
-<h3 class="font-weight-bold" th:text="'Students per group: ' + ${project.studentsPerGroup}"/>
-<h1></h1>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+        </div>
+        <div class="col-7" >
+            <head>
+                <title>Status Page</title>
+                <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+                <link crossorigin="anonymous"
+                      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+                      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+                      rel="stylesheet">
+            </head>
+            <body>
+            <form action="/" method="get">
+                <input class="btn btn-dark" type="submit" value="Back to projects">
+            </form>
+            <h3 class="font-weight-bold" style="margin-top:40px" th:text="'Project name: ' + ${project.name}"/>
+            <h3 class="font-weight-bold" th:text="'Number of groups: ' + ${project.numberOfGroups}"/>
+            <h3 class="font-weight-bold" th:text="'Students per group: ' + ${project.studentsPerGroup}"/>
+            <h1></h1>
 
-<h1 style="margin-top:40px">Students</h1>
-<form action="/addStudentToGroup" method="post" modelAttribute="project">
-    <input th:field="${project.id}" type="hidden">
-    <table style="width:25%" class="table" >
-        <tr class="thead-dark">
-            <th scope="row" style="width:55%">Student</th>
-            <th scope="row">Group</th>
-            <th scope="row" style="width:19%">Actions</th>
-        </tr>
-        <div id="groupsOfStudents">
-            <div id="studentIds" th:each="student,iterStat : ${project.students}">
-                <tr>
-                    <input th:field="*{project.students[__${iterStat.index}__].id}" type="hidden"/>
-                    <input th:field="*{project.students[__${iterStat.index}__].name}" type="hidden"/>
-                    <td id="studentName" th:text="${student.name}" th:value="${student.id}"></td>
-                    <!--            <td th:text="${student.group} ? 'Group #'+ ${student.group} : '-'">-->
-                    <td th:if="${student.group == null}">
+            <h1 style="margin-top:40px">Students</h1>
+            <form action="/addStudentToGroup" method="post" modelAttribute="project">
+                <input th:field="${project.id}" type="hidden">
+                <table class="table" >
+                    <tr class="thead-dark">
+                        <th scope="row" style="width:55%">Student</th>
+                        <th scope="row">Group</th>
+                        <th scope="row" style="width:19%">Actions</th>
+                    </tr>
+                    <div id="studentIds" th:each="student,iterStat : ${project.students}">
+                        <tr>
+                            <input th:field="*{project.students[__${iterStat.index}__].id}" type="hidden"/>
+                            <input th:field="*{project.students[__${iterStat.index}__].name}" type="hidden"/>
+                            <td id="studentName" th:text="${student.name}" th:value="${student.id}"></td>
+                            <!--            <td th:text="${student.group} ? 'Group #'+ ${student.group} : '-'">-->
+                            <td th:if="${student.group == null}">
                         <span>
                             <select style="width:100%" th:field="*{project.students[__${iterStat.index}__].group}">
                             <option placeholder="-" selected="selected" value="0">-</option>
@@ -41,43 +47,42 @@
                                         th:value="${i}"></option>
                             </select>
                         </span>
-                    </td>
-                    <td th:if="${student.group != null}">
+                            </td>
+                            <td th:if="${student.group != null}">
                         <span>
                             <c th:text="'Group #' + ${student.group}"></c>
                             <input th:field="*{project.students[__${iterStat.index}__].group}" type="hidden">
                         </span>
-                    </td>
+                            </td>
+                            <form action="/deleteStudent" method="post">
+                                <td>
+                                    <input name="studentId" th:value="${student.id}" type="hidden"/>
+                                    <input name="projectId" th:value="${project.id}" type="hidden"/>
+                                    <input class="btn btn-secondary" type="submit" value="delete">
+                                </td>
+                            </form>
+                        </tr>
+                    </div>
+                </table>
+                <div style="float: right;">
+                    <input class="btn btn-primary" type="submit" value="submit changes">
+                </div>
+            </form>
+            <form action="/addStudent" method="post">
+                <h3>Name: </h3><input class="input-group mb-3" name="studentName" style="width:70%"/>
+                <input name="projectId" th:value="${project.id}" type="hidden"/>
+                <input class="btn btn-primary" type="submit" value="Add Student">
+            </form>
 
-                    <form action="/deleteStudent" method="post">
-                        <td>
-                            <input name="studentId" th:value="${student.id}" type="hidden"/>
-                            <input name="projectId" th:value="${project.id}" type="hidden"/>
-                            <input class="btn btn-secondary" type="submit" value="delete">
-                        </td>
-                    </form>
-                </tr>
-            </div>
-    </table>
-    <div style="margin-left: 325px;">
-        <input class="btn btn-primary" type="submit" value="submit changes">
-    </div>
-</form>
-</div>
-<form action="/addStudent" method="post">
-    <h3>Name: </h3><input style="width:20%" class="input-group mb-3" name="studentName"/>
-    <input name="projectId" th:value="${project.id}" type="hidden"/>
-    <input class="btn btn-primary" type="submit" value="Add Student">
-</form>
-
-<h1 style="margin-top:40px">Groups</h1>
-<div th:each="i : ${#numbers.sequence( 1, project.numberOfGroups, 1)}">
-    <table clas="table" style="width:15%; margin: 4px 2px;">
-        <tr>
-            <th class="thead-dark" colspan="2" style="text-align:center;"><p th:text="'GROUP #' + ${i}"/></th>
-        </tr>
-        <div th:each="student,iterStat : ${project.students}">
-            <tr>
+            <h1 style="margin-top:40px">Groups</h1>
+            <div th:each="i : ${#numbers.sequence( 1, project.numberOfGroups, 1)}">
+                <table clas="table" style="margin: 4px 2px;">
+                    <tr>
+                        <th class="thead-dark" colspan="2" style="text-align:center;"><p th:text="'GROUP #' + ${i}"/>
+                        </th>
+                    </tr>
+                    <div th:each="student,iterStat : ${project.students}">
+                        <tr>
                     <span th:if="${student.group == i}">
                         <td th:text="${student.name}"></td>
                         <form action="/deleteFromGroup" method="post">
@@ -88,11 +93,17 @@
                             </td>
                         </form>
                     </span>
-            </tr>
+                        </tr>
+                    </div>
+                </table>
+            </div>
+            </body>
         </div>
-    </table>
+        <div class="col-sm">
+        </div>
+    </div>
 </div>
-</body>
+
 <style>
 table, th, td {
     border: 1px solid black;
