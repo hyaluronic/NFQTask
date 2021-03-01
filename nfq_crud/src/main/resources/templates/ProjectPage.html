@@ -6,46 +6,38 @@
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
 </head>
-<div class="container">
-    <div class="row">
-        <div class="col-sm">
-        </div>
-        <div class="col-13">
-            <body>
-            <form style="margin-top:40px;" action="/addProject" method="post" >
-                Project Name:   <input name="projectName"/>
-                Number of groups:   <input name="numberOfGroups"/>
-                Students per group:   <input name="studentsPerGroup"/>
-                <input type="submit" value="Add project">
+<body>
+
+<h1></h1>
+
+<form style="margin-top:40px;" action="/addProject" method="post" >
+    Project Name:   <input name="projectName"/>
+    Number of groups:   <input name="numberOfGroups"/>
+    Students per group:   <input name="studentsPerGroup"/>
+    <input type="submit" value="Add project">
+</form>
+
+<h1 style="margin-top:40px;">Projects:</h1>
+<table class="table" style="width:25%">
+    <tr class="thead-dark">
+        <th style="wifth:5%">Id</th>
+        <th style="width:75%">Project name</th>
+        <th style="width:20%">Action</th>
+    </tr>
+    <div th:each="project,iterStat : ${projects}">
+        <tr>
+            <td><a th:href="@{statusPage/{id}(id = ${project.id})}" th:text="${project.id}"></a></td>
+            <td><a th:href="@{statusPage/{id}(id = ${project.id})}" th:text="${project.name}"></a></td>
+            <form action="/deleteProject" method="post">
+                <td>
+                    <input type="hidden" name="projectId" th:value="${project.id}"/>
+                    <input style="text-align: center" type="submit" value="delete">
+                </td>
             </form>
-
-            <h1 style="margin-top:40px;">Projects:</h1>
-            <table class="table" style="width:25%">
-                <tr class="thead-dark">
-                    <th style="wifth:5%">Id</th>
-                    <th style="width:75%">Project name</th>
-                    <th style="width:20%">Action</th>
-                </tr>
-                <div th:each="project,iterStat : ${projects}">
-                    <tr>
-                        <td><a th:href="@{statusPage/{id}(id = ${project.id})}" th:text="${project.id}"></a></td>
-                        <td><a th:href="@{statusPage/{id}(id = ${project.id})}" th:text="${project.name}"></a></td>
-                        <form action="/deleteProject" method="post">
-                            <td>
-                                <input type="hidden" name="projectId" th:value="${project.id}"/>
-                                <input style="text-align: center" type="submit" value="delete">
-                            </td>
-                        </form>
-                    </tr>
-                </div>
-            </table>
-            </body>
-        </div>
-        <div class="col-sm">
-        </div>
+        </tr>
     </div>
-</div>
-
+</table>
+</body>
 <style>
 table, th, td {
     border: 1px solid black;
