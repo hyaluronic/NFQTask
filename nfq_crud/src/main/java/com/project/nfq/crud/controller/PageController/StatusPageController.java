@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Controller
 public class StatusPageController {
@@ -49,7 +51,6 @@ public class StatusPageController {
             Project project = projectService.getProjectById(projectId);
             Student student = new Student();
             student.setName(studentName);
-            student.setGroup(1);
             student.setProject(project);
             studentService.saveStudent(student);
         }
@@ -65,8 +66,13 @@ public class StatusPageController {
     @PostMapping(value = "/addStudentToGroup")
     public String updateStudent(@ModelAttribute Project project) {
         if (project.getId() != null) {
+            Project currentProject = projectService.getProjectById(project.getId());
             for (Student student : project.getStudents()) {
-                if (student.getGroup() != 0) {
+                int studentCount = studentService.getStudents().stream().
+                        filter(s -> Objects.equals(s.getGroup(), student.getGroup()))
+                        .collect(Collectors.toList())
+                        .size();
+                if (student.getGroup() != 0 && studentCount < currentProject.getStudentsPerGroup()) {
                     student.setProject(project);
                     studentService.updateStudent(student);
                 }
