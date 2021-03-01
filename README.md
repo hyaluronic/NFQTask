@@ -17,6 +17,7 @@ Project page:
 At the top you can add a new project by inputting information and clicking the add project button.
 Below Projects table with all created projects is shown.
 To delete a project click a delete button by the project name.
+To go to the projects' status page click on the project id or project name.
 
 Status page:
 The project information is shown at the top, Just below is the list of project students, you can add students by writing the name and clicking add student button.
