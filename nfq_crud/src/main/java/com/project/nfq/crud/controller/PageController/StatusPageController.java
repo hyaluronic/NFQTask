@@ -29,16 +29,9 @@ public class StatusPageController {
     @GetMapping("/statusPage/{id}")
     public String statusPage(@PathVariable("id") int id, Model model) {
         Project project = projectService.getProjectById(id);
-//        List<Integer> fullGroups = new java.util.ArrayList<>(Collections.emptyList());
-//        for (Integer i = 1; i <= project.getNumberOfGroups(); i++) {
-//            if (studentService.getStudentByGroup(i, project.getId()).size() < project.getStudentsPerGroup()) {
-//                fullGroups.add(i);
-//            }
-//        }
         List<Student> studentsWithoutGroup = studentService.getStudentsByProjectId(id);
         studentsWithoutGroup.removeIf(student -> student.getGroup() != null);
         model.addAttribute("project", project);
-//        model.addAttribute("studentsWithoutGroup", studentsWithoutGroup);
         return "statusPage";
     }
 
@@ -63,13 +56,12 @@ public class StatusPageController {
 
     @PostMapping(value = "/addStudentToGroup")
     public String updateStudent(@ModelAttribute Project project) {
-        if (project !=null && project.getId() != null) {
+        if (project != null && project.getId() != null) {
             Project currentProject = projectService.getProjectById(project.getId());
-            if(project.getStudents()!=null)
-            {
+            if (project.getStudents() != null) {
                 for (Student student : project.getStudents()) {
-                    int studentCount = studentService.getStudents().stream().
-                            filter(s -> Objects.equals(s.getGroup(), student.getGroup()))
+                    int studentCount = studentService.getStudents().stream()
+                            .filter(s -> Objects.equals(s.getGroup(), student.getGroup()))
                             .collect(Collectors.toList())
                             .size();
                     if (student.getGroup() != 0 && studentCount < currentProject.getStudentsPerGroup()) {
