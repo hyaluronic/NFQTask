@@ -7,6 +7,10 @@ Used spring boot as it is easy to start with;
 Thymeleaf in HTML as it gives more dynamism;
 Bootstrap for frontend for pages to look more esthetic.
 
+To start the application:
+-create mySql user named "admin" with password "admin" and database named "nfq_db"
+-launch project on port 9191
+
 Solution:
 Created a spring boot template and set up a database with initial entities that I thought were necessary:
 Project to keep track of the project and student that is linked to the project.
